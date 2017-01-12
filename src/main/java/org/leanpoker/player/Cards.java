@@ -46,7 +46,7 @@ public class Cards {
                 case "A":
                     return 14;
                 default:
-                    return null;
+                    return Integer.parseInt(stringValue);
             }
         } else return Integer.parseInt(stringValue);
     }
