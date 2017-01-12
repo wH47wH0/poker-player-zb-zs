@@ -32,16 +32,31 @@ public class Player {
         int currentBuyIn = json.get("current_buy_in").getAsInt();
 
         if (holeCards.size() == 2) {
-            if (currentBuyIn < (Integer.parseInt(ownStack) / 3)) {
+            if (currentBuyIn > 0) {
                 JsonObject firstCard = holeCards.get(0).get("rank").getAsJsonObject();
                 JsonObject secondCard = holeCards.get(1).get("rank").getAsJsonObject();
-                if (firstCard.equals(secondCard) || firstCard.equals("A") || secondCard.equals("A") || ((firstCard.equals("K") && secondCard.equals("10")) || (secondCard.equals("K") && firstCard.equals("10")))) {
+                if (firstCard.equals(secondCard) || (firstCard.equals("A") && secondCard.getAsInt() > 8) || (secondCard.equals("A") && firstCard.getAsInt() > 8)
+                        || (firstCard.equals("K") && secondCard.getAsInt() > 9) || (secondCard.equals("K") && firstCard.getAsInt() > 9) ||
+                        (firstCard.equals("Q") && secondCard.equals("J")) || (secondCard.equals("Q") && firstCard.equals("J")) ||
+                        (firstCard.equals("J") && ((secondCard.equals(10) && holeCards.get(1).get("suit").getAsJsonObject().equals(holeCards.get(0).get("suit").getAsJsonObject())))))
+                {
                     return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
+
                 }
-                return 1;
             }
-            return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
         }
+
+
+//            if (currentBuyIn < (Integer.parseInt(ownStack) / 3)) {
+//                JsonObject firstCard = holeCards.get(0).get("rank").getAsJsonObject();
+//                JsonObject secondCard = holeCards.get(1).get("rank").getAsJsonObject();
+//                if (firstCard.equals(secondCard) || firstCard.equals("A") || secondCard.equals("A") || ((firstCard.equals("K") && secondCard.equals("10")) || (secondCard.equals("K") && firstCard.equals("10")))) {
+//                    return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
+//                }
+//                return 1;
+//            }
+//            return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
+//        }
         return 1;
 
     }
