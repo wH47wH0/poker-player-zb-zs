@@ -21,7 +21,7 @@ public class Player {
         JsonArray playerList = json.get("players").getAsJsonArray();
         for (JsonElement player : playerList) {
             System.out.println("player "+player);
-            if (player.getAsJsonObject().get("player").toString().equals("_ZB.ZS")) {
+            if (player.getAsJsonObject().get("name").toString().equals("_ZB.ZS")) {
                 System.out.println("player zbzs "+player.getAsJsonObject().get("name").toString());
                 ownStack = player.getAsJsonObject().get("stack").toString();
             }
