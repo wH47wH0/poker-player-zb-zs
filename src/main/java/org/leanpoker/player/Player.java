@@ -13,6 +13,7 @@ public class Player {
 
     public static int betRequest(JsonElement request) {
         JsonObject json = request.getAsJsonObject();
+        System.out.println("find me "+ json);
         int bet = 0;
         List holeCards = new ArrayList();
         JsonArray jsonArray = json.get("players").getAsJsonArray();
