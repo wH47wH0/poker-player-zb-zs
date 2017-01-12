@@ -33,7 +33,7 @@ public class Player {
                 Cards cards = new Cards(holeCards.get(0).getAsJsonObject(), holeCards.get(1).getAsJsonObject());
                 if (cards.hasAceAndNine() || cards.hasJockAndQueen() || cards.hasKingAndTen() || cards.hasPair() || cards.hasSameColorEightAndHigher()) {
                     System.out.println("zbzs action if good cards " + (currentBuyIn - bet + json.get("minimum_raise").getAsInt()));
-                    return currentBuyIn - bet;
+                    return Integer.parseInt(ownStack);
 //                    return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
                 }
             }
