@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class Cards {
     private static final List<String> FACES = Arrays.asList("J", "Q", "K", "A");
-    private boolean pair;
     private boolean aceAndNine;
     private boolean kingAndTen;
     private boolean jockAndQueen;
@@ -41,7 +40,7 @@ public class Cards {
     public boolean hasMedPair() {return this.medPair;}
     public boolean hasHighPair() {return this.highPair;}
 
-    private static Integer convertCardValues(String stringValue) {
+    private Integer convertCardValues(String stringValue) {
         if (FACES.contains(stringValue)) {
             switch (stringValue) {
                 case "J":
@@ -58,44 +57,25 @@ public class Cards {
         } else return Integer.parseInt(stringValue);
     }
 
-    private static boolean hasAce(Integer value1, Integer value2) {
-        return value1.equals(14) || value2.equals(14);
-    }
-
-    private static boolean hasKing(Integer value1, Integer value2) {
-        return value1.equals(13) || value2.equals(13);
-    }
-
-    private static boolean hasQueen(Integer value1, Integer value2) {
-        return value1.equals(12) || value2.equals(12);
-    }
-
-    private static boolean hasJock(Integer value1, Integer value2) {
-        return value1.equals(11) || value2.equals(11);
-    }
-
-    private static boolean eightAndHigher(Integer value1, Integer value2) {
-        return value1>7 && value2>7;
-    }
-
-    private static boolean sameColor(String color1, String color2) {
+    private boolean sameColor(String color1, String color2) {
         return color1.equals(color2);
     }
 
-    private static boolean aceAndNine(Integer value1, Integer value2) {
-        return hasAce(value1, value2) && (value1>8 || value2>8);
+
+    private boolean aceAndNine(Integer value1, Integer value2) {
+        return (value1==14 && value2>8) || (value2==14 && value1>8);
     }
 
-    private static boolean kingAndTen(Integer value1, Integer value2) {
-        return hasKing(value1, value2) && (value1>9 || value2>9);
+    private boolean kingAndTen(Integer value1, Integer value2) {
+        return (value1==13 && value2>9) || (value2==13 && value1>9);
     }
 
-    private static boolean jockAndQueen(Integer value1, Integer value2) {
-        return hasQueen(value1, value2) && hasJock(value1, value2);
+    private boolean jockAndQueen(Integer value1, Integer value2) {
+        return (value1==12 && value2>10) || (value2==12 && value1>10);
     }
 
-    private static boolean sameColorEightAndHigher(String color1, String color2, Integer value1, Integer value2) {
-        return sameColor(color1, color2) && (eightAndHigher(value1, value2));
+    private boolean sameColorEightAndHigher(String color1, String color2, Integer value1, Integer value2) {
+        return sameColor(color1, color2) && (value1>7 && value2>7);
     }
 
     public boolean smallPair(Integer value1, Integer value2){
