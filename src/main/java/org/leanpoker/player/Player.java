@@ -3,11 +3,9 @@ package org.leanpoker.player;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.util.Map;
-
 public class Player {
 
-    static final String VERSION = "Default Java folding player";
+    static final String VERSION = "_ZB.ZS";
 
     public static int betRequest(JsonElement request) {
         JsonObject json = request.getAsJsonObject();
