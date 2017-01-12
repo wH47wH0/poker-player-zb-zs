@@ -20,6 +20,7 @@ public class Player {
             }
         }
         int currentBuyIn = json.get("current_buy_in").getAsInt();
+        System.out.println("find me "+ (currentBuyIn-bet+json.get("minimum_raise").getAsInt()));
         return currentBuyIn-bet+json.get("minimum_raise").getAsInt();
     }
 
