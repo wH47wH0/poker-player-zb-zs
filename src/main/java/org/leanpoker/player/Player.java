@@ -32,6 +32,7 @@ public class Player {
         for (JsonElement player : playerList) {
             if (player.getAsJsonObject().get("name").toString().equals("_ZB.ZS")) {
                 ownStack = player.getAsJsonObject().get("stack").getAsInt();
+                System.out.println("find hole cards "+ player.getAsJsonObject().get("hole_cards").getAsJsonArray());
                 holeCards = player.getAsJsonObject().get("hole_cards").getAsJsonArray();
                 bet = player.getAsJsonObject().get("bet").getAsInt();
             }
