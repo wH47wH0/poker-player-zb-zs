@@ -29,18 +29,15 @@ public class Player {
 
         if (holeCards.size() == 2) {
             if (currentBuyIn > 0) {
-                JsonElement firstCard = holeCards.get(0).getAsJsonObject().get("rank");
-                JsonElement secondCard = holeCards.get(1).getAsJsonObject().get("rank");
-                if (firstCard.equals(secondCard) || (firstCard.equals("A") && secondCard.getAsInt() > 8) || (secondCard.equals("A") && firstCard.getAsInt() > 8)
-                        || (firstCard.equals("K") && secondCard.getAsInt() > 9) || (secondCard.equals("K") && firstCard.getAsInt() > 9) ||
-                        (firstCard.equals("Q") && secondCard.equals("J")) || (secondCard.equals("Q") && firstCard.equals("J")) ||
-                        (firstCard.equals("J") && ((secondCard.equals(10) && holeCards.get(1).getAsJsonObject().get("suit").equals(holeCards.get(0).getAsJsonObject().get("suit").getAsJsonObject()))))) {
+                Cards cards = new Cards(holeCards.get(0).getAsJsonObject(), holeCards.get(1).getAsJsonObject());
+                if (cards.hasAceAndNine() || cards.hasJockAndQueen() || cards.hasKingAndTen() || cards.hasPair() || cards.hasSameColorEightAndHigher()) {
                     System.out.println("zbzs action if good cards " + (currentBuyIn - bet + json.get("minimum_raise").getAsInt()));
-                    return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
+                    return currentBuyIn - bet;
+//                    return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
                 }
             }
         }
-        return 1;
+        return 0;
 
     }
 
