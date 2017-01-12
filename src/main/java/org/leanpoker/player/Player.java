@@ -22,7 +22,7 @@ public class Player {
         for (JsonElement player : playerList) {
             System.out.println("player "+player);
             if (player.getAsJsonObject().get("player").toString().equals("_ZB.ZS")) {
-                System.out.println("player zbzs "+player.getAsJsonObject().get("player").toString());
+                System.out.println("player zbzs "+player.getAsJsonObject().get("name").toString());
                 ownStack = player.getAsJsonObject().get("stack").toString();
             }
             playerStatus = player.getAsJsonObject().get("status").toString();
