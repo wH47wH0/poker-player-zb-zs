@@ -30,6 +30,7 @@ public class Player {
             }
         }
         int currentBuyIn = json.get("current_buy_in").getAsInt();
+        System.out.println("find me 2 "+ json);
 
         if (holeCards.size() == 2) {
             if (currentBuyIn > 0) {
