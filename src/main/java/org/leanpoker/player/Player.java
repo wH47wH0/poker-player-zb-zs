@@ -41,6 +41,9 @@ public class Player {
                 ownStack = player.getAsJsonObject().get("stack").getAsInt();
                 holeCards = player.getAsJsonObject().get("hole_cards").getAsJsonArray();
                 bet = player.getAsJsonObject().get("bet").getAsInt();
+                if (player.getAsJsonObject().get("status").getAsString().equals("active")) {
+                    actives += 1;
+                }
             } else {
                 List data = new ArrayList();
                 String playerName = player.getAsJsonObject().get("name").getAsString();
@@ -60,7 +63,7 @@ public class Player {
                     return ownStack;
 
                 } else {
-                    if(currentBuyIn<= smallBlind*2){
+                    if (currentBuyIn <= smallBlind * 2) {
                         return currentBuyIn - bet + minimumRaise;
                     }
                 }
@@ -94,7 +97,7 @@ public class Player {
 //        fold:
 //              return 0;
 //        allin:
-//              return Integer.parseInt(ownStack);
+//              return ownStack;
 
     }
 
