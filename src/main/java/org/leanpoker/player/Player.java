@@ -22,9 +22,9 @@ public class Player {
             if (player.getAsJsonObject().get("name").toString().equals("_ZB.ZS")) {
                 System.out.println("player zbzs " + player.getAsJsonObject().get("name").toString());
                 ownStack = player.getAsJsonObject().get("stack").toString();
+                holeCards = player.getAsJsonObject().get("hole_cards").getAsJsonArray();
             }
             playerStatus = player.getAsJsonObject().get("status").toString();
-            holeCards = player.getAsJsonObject().get("hole_cards").getAsJsonArray();
             if (playerStatus.equals("in_action")) {
                 bet = player.getAsJsonObject().get("bet").getAsInt();
             }
