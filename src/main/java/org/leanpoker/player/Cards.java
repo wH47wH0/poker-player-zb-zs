@@ -17,8 +17,8 @@ public class Cards {
     private boolean sameColorEightAndHigher;
 
     public Cards(JsonObject card1, JsonObject card2) {
-        String color1 = card1.get("suite").getAsString();
-        String color2 = card2.get("suite").getAsString();
+        String color1 = card1.get("suit").getAsString();
+        String color2 = card2.get("suit").getAsString();
         Integer value1 = convertCardValues(card1.get("rank").getAsString());
         Integer value2 = convertCardValues(card2.get("rank").getAsString());
         this.pair = pair(value1, value2);
