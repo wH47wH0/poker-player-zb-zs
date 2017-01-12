@@ -38,7 +38,9 @@ public class Player {
                 if (firstCard.equals(secondCard) || firstCard.equals("A") || secondCard.equals("A") || ((firstCard.equals("K") && secondCard.equals("10")) || (secondCard.equals("K") && firstCard.equals("10")))) {
                     return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
                 }
+                return 1;
             }
+            return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
         }
         return 1;
 
