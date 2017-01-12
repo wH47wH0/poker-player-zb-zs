@@ -2,14 +2,14 @@ package org.leanpoker.player;
 
 import com.google.gson.JsonObject;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by hamargyuri on 2017. 01. 12..
  */
 public class Cards {
-    private static final List<String> FACES = Arrays.asList("J", "Q", "K", "A");
+    private List<String> colors = new ArrayList<>();
+    private List<Integer> values = new ArrayList<>();
     private boolean pair;
     private boolean aceAndNine;
     private boolean kingAndTen;
@@ -19,8 +19,12 @@ public class Cards {
     public Cards(JsonObject card1, JsonObject card2) {
         String color1 = card1.get("suit").getAsString();
         String color2 = card2.get("suit").getAsString();
-        Integer value1 = convertCardValues(card1.get("rank").getAsString());
-        Integer value2 = convertCardValues(card2.get("rank").getAsString());
+        Integer value1 = ConvertCardValue.convert(card1.get("rank").getAsString());
+        Integer value2 = ConvertCardValue.convert(card2.get("rank").getAsString());
+        this.colors.add(color1);
+        this.colors.add(color2);
+        this.values.add(value1);
+        this.values.add(value2);
         this.pair = pair(value1, value2);
         this.aceAndNine = aceAndNine(value1, value2);
         this.kingAndTen = kingAndTen(value1, value2);
@@ -33,23 +37,8 @@ public class Cards {
     public boolean hasKingAndTen() { return this.kingAndTen; }
     public boolean hasJockAndQueen() { return this.jockAndQueen; }
     public boolean hasSameColorEightAndHigher() { return this.sameColorEightAndHigher; }
-
-    private Integer convertCardValues(String stringValue) {
-        if (FACES.contains(stringValue)) {
-            switch (stringValue) {
-                case "J":
-                    return 11;
-                case "Q":
-                    return 12;
-                case "K":
-                    return 13;
-                case "A":
-                    return 14;
-                default:
-                    return Integer.parseInt(stringValue);
-            }
-        } else return Integer.parseInt(stringValue);
-    }
+    public List<String> getColors() { return this.colors; }
+    public List<Integer> getValues() { return this.values; }
 
     private boolean sameColor(String color1, String color2) {
         return color1.equals(color2);
