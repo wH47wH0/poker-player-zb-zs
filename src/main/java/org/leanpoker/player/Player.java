@@ -16,7 +16,7 @@ public class Player {
         System.out.println("find me " + json);
         String ownStack = "0";
         int bet = 0;
-        List<JsonObject> holeCards = new ArrayList();
+        JsonArray holeCards = new JsonArray();
         String playerStatus;
         JsonArray playerList = json.get("players").getAsJsonArray();
         for (JsonElement player : playerList) {
@@ -26,7 +26,7 @@ public class Player {
                 ownStack = player.getAsJsonObject().get("stack").toString();
             }
             playerStatus = player.getAsJsonObject().get("status").toString();
-            holeCards.add(player.getAsJsonObject().get("hole_cards").getAsJsonObject());
+            holeCards = player.getAsJsonObject().get("hole_cards").getAsJsonArray();
             if (playerStatus.equals("in_action")) {
                 bet = player.getAsJsonObject().get("bet").getAsInt();
             }
@@ -36,19 +36,19 @@ public class Player {
 
         if (holeCards.size() == 2) {
             if (currentBuyIn > 0) {
-                JsonObject firstCard = holeCards.get(0).get("rank").getAsJsonObject();
-                JsonObject secondCard = holeCards.get(1).get("rank").getAsJsonObject();
-                System.out.println("find me "+ firstCard +" "+secondCard);
+                JsonElement firstCard = holeCards.get(0).getAsJsonObject().get("rank");
+                JsonElement secondCard = holeCards.get(1).getAsJsonObject().get("rank");
+                System.out.println("find me " + firstCard + " " + secondCard);
                 if (firstCard.equals(secondCard) || (firstCard.equals("A") && secondCard.getAsInt() > 8) || (secondCard.equals("A") && firstCard.getAsInt() > 8)
                         || (firstCard.equals("K") && secondCard.getAsInt() > 9) || (secondCard.equals("K") && firstCard.getAsInt() > 9) ||
                         (firstCard.equals("Q") && secondCard.equals("J")) || (secondCard.equals("Q") && firstCard.equals("J")) ||
-                        (firstCard.equals("J") && ((secondCard.equals(10) && holeCards.get(1).get("suit").getAsJsonObject().equals(holeCards.get(0).get("suit").getAsJsonObject())))))
-                {
-                    return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
+                        (firstCard.equals("J") && ((secondCard.equals(10) && holeCards.get(1).getAsJsonObject().get("suit").equals(holeCards.get(0).getAsJsonObject().get("suit").getAsJsonObject()))))) {
 
+                    return currentBuyIn - bet + json.get("minimum_raise").getAsInt();
                 }
             }
-        }
+            }
+
 
 
 //            if (currentBuyIn < (Integer.parseInt(ownStack) / 3)) {
