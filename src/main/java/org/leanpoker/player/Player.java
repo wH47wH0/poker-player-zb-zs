@@ -35,6 +35,7 @@ public class Player {
             if (currentBuyIn > 0) {
                 JsonObject firstCard = holeCards.get(0).get("rank").getAsJsonObject();
                 JsonObject secondCard = holeCards.get(1).get("rank").getAsJsonObject();
+                System.out.println("find me "+ firstCard +" "+secondCard);
                 if (firstCard.equals(secondCard) || (firstCard.equals("A") && secondCard.getAsInt() > 8) || (secondCard.equals("A") && firstCard.getAsInt() > 8)
                         || (firstCard.equals("K") && secondCard.getAsInt() > 9) || (secondCard.equals("K") && firstCard.getAsInt() > 9) ||
                         (firstCard.equals("Q") && secondCard.equals("J")) || (secondCard.equals("Q") && firstCard.equals("J")) ||
