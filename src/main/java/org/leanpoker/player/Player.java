@@ -32,7 +32,7 @@ public class Player {
         for (JsonElement player : playerList) {
             System.out.println("find player " + player);
             if (player.getAsJsonObject().get("name").getAsString().equals("ZB ZS")) {
-                System.out.println("find us " + player.getAsJsonObject().get("name").equals("ZB ZS"));
+                System.out.println("find us " + player.getAsJsonObject().get("name").getAsString().equals("ZB ZS"));
                 ownStack = player.getAsJsonObject().get("stack").getAsInt();
                 System.out.println("find hole cards "+ player.getAsJsonObject().get("hole_cards").getAsJsonArray());
                 holeCards = player.getAsJsonObject().get("hole_cards").getAsJsonArray();
@@ -47,9 +47,10 @@ public class Player {
             if (currentBuyIn > smallBlind * 2) {
                 Cards cards = new Cards(holeCards.get(0).getAsJsonObject(), holeCards.get(1).getAsJsonObject());
                 if (cards.hasAceAndNine() || cards.hasJockAndQueen() || cards.hasKingAndTen() || cards.hasPair() || cards.hasSameColorEightAndHigher()) {
-                    System.out.println("find allin " + ownStack);
                         return ownStack;
                 }
+            } else {
+                return currentBuyIn - bet;
             }
         }
         return 0;
