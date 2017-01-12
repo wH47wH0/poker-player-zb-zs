@@ -44,14 +44,10 @@ public class Player {
         }
         System.out.println("find holeCards.size() " + holeCards.size());
         if (holeCards.size() == 2) {
-            if (currentBuyIn > smallBlind * 2) {
                 Cards cards = new Cards(holeCards.get(0).getAsJsonObject(), holeCards.get(1).getAsJsonObject());
                 if (cards.hasAceAndNine() || cards.hasJockAndQueen() || cards.hasKingAndTen() || cards.hasPair() || cards.hasSameColorEightAndHigher()) {
                         return ownStack;
                 }
-            } else {
-                return currentBuyIn - bet;
-            }
         }
         return 0;
 
