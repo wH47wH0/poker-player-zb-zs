@@ -58,7 +58,8 @@ public class Player {
                     return 0;
                 }
             } else {
-                if (cards.hasAceAndNine() || cards.hasJockAndQueen() || cards.hasKingAndTen() || cards.hasHighPair() || cards.hasSameColorEightAndHigher()) {
+                if (cards.hasAceAndNine() || cards.hasJockAndQueen() || cards.hasKingAndTen() || cards.hasHighPair() ||
+                        cards.hasMedPair() || cards.hasSmallPair() || cards.hasSameColorEightAndHigher()) {
                     return ownStack;
                 }
             }
