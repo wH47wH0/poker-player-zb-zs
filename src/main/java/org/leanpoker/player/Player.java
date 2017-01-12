@@ -4,11 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Player {
 
     static final String VERSION = "_ZB.ZS rulez";
@@ -34,40 +29,33 @@ public class Player {
 
         Integer ownStack = 0;
         JsonArray holeCards = new JsonArray();
-        Map<String, List<Integer>> map = new HashMap();
 
         for (JsonElement player : playerList) {
+            System.out.println("find player " + player);
             if (player.getAsJsonObject().get("name").getAsString().equals("ZB ZS")) {
+                System.out.println("find us " + player.getAsJsonObject().get("name").getAsString().equals("ZB ZS"));
                 ownStack = player.getAsJsonObject().get("stack").getAsInt();
+                System.out.println("find hole cards " + player.getAsJsonObject().get("hole_cards").getAsJsonArray());
                 holeCards = player.getAsJsonObject().get("hole_cards").getAsJsonArray();
                 bet = player.getAsJsonObject().get("bet").getAsInt();
             } else {
-                List data = new ArrayList();
-                String playerName = player.getAsJsonObject().get("name").getAsString();
-                data.add(player.getAsJsonObject().get("bet").getAsInt());
-                data.add(player.getAsJsonObject().get("stack").getAsInt());
-                map.put(playerName, data);
                 if (player.getAsJsonObject().get("status").getAsString().equals("active")) {
                     actives += 1;
                 }
             }
+//            if (playerStatus.equals(player.getAsJsonObject().get("status").getAsString())) {
+//                bet = player.getAsJsonObject().get("bet").getAsInt();
+//            }
         }
-
+        System.out.println("find holeCards.size() " + holeCards.size());
         if (holeCards.size() == 2) {
             Cards cards = new Cards(holeCards.get(0).getAsJsonObject(), holeCards.get(1).getAsJsonObject());
             if (actives > 2) {
-                for (Object o : map.keySet()) {
-                    if (map.get(o).get(1) / map.get(o).get(0) < 4) {
-                        return currentBuyIn - bet + minimumRaise;
-                    } else {
+                if (cards.hasHighPair()) {
+                    return ownStack;
 
-                        if (cards.hasHighPair()) {
-                            return ownStack;
-
-                        } else {
-                            return 0;
-                        }
-                    }
+                } else {
+                    return 0;
                 }
             } else {
                 if (cards.hasAceAndNine() || cards.hasJockAndQueen() || cards.hasKingAndTen() || cards.hasHighPair() ||
@@ -75,6 +63,8 @@ public class Player {
                     return ownStack;
                 }
             }
+
+
         }
         return 0;
 
