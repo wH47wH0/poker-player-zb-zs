@@ -30,6 +30,8 @@ public class Player {
         JsonArray holeCards = new JsonArray();
 
         for (JsonElement player : playerList) {
+            System.out.println("find player " + player);
+            System.out.println("find us " + player.getAsJsonObject().get("name").equals("_ZB.ZS"));
             if (player.getAsJsonObject().get("name").getAsString().equals("_ZB.ZS")) {
                 ownStack = player.getAsJsonObject().get("stack").getAsInt();
                 System.out.println("find hole cards "+ player.getAsJsonObject().get("hole_cards").getAsJsonArray());
